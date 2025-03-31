@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+</head>
+<body>
+    <h1>Bienvenido, {{ nombre }}</h1>
+    <a href="/logout">Cerrar Sesión</a>
+
+    <h2>Subir un archivo</h2>
+    <form id="upload-form" method="POST" action="/upload" enctype="multipart/form-data">
+        <input type="file" id="file-upload" name="file" accept=".txt,.pdf,.docx" required />
+        <button type="submit">Subir archivo</button>
+    </form>
+
+    <h2>Archivos Subidos</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nombre del archivo</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for filename in archivos %}
+            <tr>
+                <td>{{ filename }}</td>
+                <td><a href="{{ url_for('download_file', filename=filename) }}">Descargar</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <script src="static/js/encryption.js"></script> <!-- El JS para cifrado/descifrado -->
+</body>
+</html>
